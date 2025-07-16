@@ -1,0 +1,1 @@
+// Este es un placeholder para un widget vacío.
