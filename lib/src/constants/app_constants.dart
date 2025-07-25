@@ -1,1 +1,0 @@
-// Aquí se definirán las constantes de la aplicación.

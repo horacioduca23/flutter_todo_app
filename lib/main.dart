@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import 'src/my_app.dart';
+import 'src/constants/string_constants.dart';
+import 'src/todo_app.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(
-    const TodoApp(),
-  );
+  await dotenv.load(fileName: StringConstants.dotEnv);
+
+  //final sharedPreferences = await SharedPreferences.getInstance();
+
+  runApp(const TodoApp());
 }

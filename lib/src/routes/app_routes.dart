@@ -1,11 +1,10 @@
 enum AppRoutes {
-  home('/'),
-  current('current'),
-  details('details');
+  home('/', 'home'),
+  addTask('add-task', 'add-task'),
+  editTask('edit-task', 'edit-task');
 
-  const AppRoutes(
-    this.path,
-  );
+  const AppRoutes(this.path, this.name);
 
   final String path;
+  final String name;
 }

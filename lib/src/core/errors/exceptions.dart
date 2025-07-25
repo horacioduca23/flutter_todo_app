@@ -1,1 +1,0 @@
-// Aquí se definirán las excepciones personalizadas.

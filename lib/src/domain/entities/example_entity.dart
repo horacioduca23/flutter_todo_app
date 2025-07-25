@@ -1,1 +1,0 @@
-// Aquí se definirá la entidad de ejemplo.

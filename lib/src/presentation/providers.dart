@@ -1,24 +1,20 @@
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-// import 'package:riverpod_annotation/riverpod_annotation.dart';
+import '../data/datasources/llm_remote_datasource.dart';
+import '../data/datasources/llm_remote_datasource_impl.dart';
+import '../data/repositories/llm_remote_repository.dart';
 
-// import '../data/repositories/weather_repository.dart';
-// import '../data/datasources/i_weather_data_source.dart';
-// import '../data/datasources/weather_data_source.dart';
+part 'providers.g.dart';
 
-// part 'providers.g.dart';
+@riverpod
+LlmRemoteDatasource llmRemoteDatasource(Ref ref) => LlmRemoteDatasourceImpl();
 
-// @riverpod
-// IWeatherDataSource weatherDataSource(
-//   WeatherDataSourceRef ref,
-// ) {
-//   return WeatherDataSource();
-// }
+@riverpod
+LlmRemoteRepository llmRemoteRepository(Ref ref) {
+  final LlmRemoteDatasource llmRemoteDatasource = ref.watch(
+    llmRemoteDatasourceProvider,
+  );
 
-// @riverpod
-// WeatherRepository weatherRepository(
-//   WeatherRepositoryRef ref,
-// ) {
-//   final weatherDataSource = ref.watch(weatherDataSourceProvider);
-
-//   return WeatherRepository(weatherDataSource: weatherDataSource);
-// }
+  return LlmRemoteRepository(llmRemoteDatasource: llmRemoteDatasource);
+}
