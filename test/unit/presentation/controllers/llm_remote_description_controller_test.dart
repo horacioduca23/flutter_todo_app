@@ -36,6 +36,7 @@ void main() {
       test(
         'debe completar exitosamente y actualizar descriptionController',
         () async {
+          const title = 'Test title';
           const prompt = 'Test prompt';
           const expectedContent = 'Descripción generada por LLM';
           final mockLlmRemote = LlmRemote(
@@ -43,14 +44,20 @@ void main() {
           );
 
           when(
-            () => mockRepository.fetchLlmRemoteDescription(prompt: prompt),
+            () => mockRepository.fetchLlmRemoteDescription(
+              title: title,
+              prompt: prompt,
+            ),
           ).thenAnswer((_) async => mockLlmRemote);
 
           final controller = container.read(
             llmRemoteDescriptionControllerProvider.notifier,
           );
 
-          await controller.fetchLlmRemoteDescription(prompt: prompt);
+          await controller.fetchLlmRemoteDescription(
+            title: title,
+            prompt: prompt,
+          );
 
           final state = container.read(llmRemoteDescriptionControllerProvider);
           expect(state.hasValue, isTrue);
@@ -62,24 +69,34 @@ void main() {
           expect(descriptionState, equals(expectedContent));
 
           verify(
-            () => mockRepository.fetchLlmRemoteDescription(prompt: prompt),
+            () => mockRepository.fetchLlmRemoteDescription(
+              title: title,
+              prompt: prompt,
+            ),
           ).called(1);
         },
       );
 
       test('debe manejar errores del repositorio correctamente', () async {
+        const title = 'Test title';
         const prompt = 'Test prompt';
         final exception = Exception('Error de API');
 
         when(
-          () => mockRepository.fetchLlmRemoteDescription(prompt: prompt),
+          () => mockRepository.fetchLlmRemoteDescription(
+            title: title,
+            prompt: prompt,
+          ),
         ).thenAnswer((_) async => throw exception);
 
         final controller = container.read(
           llmRemoteDescriptionControllerProvider.notifier,
         );
 
-        await controller.fetchLlmRemoteDescription(prompt: prompt);
+        await controller.fetchLlmRemoteDescription(
+          title: title,
+          prompt: prompt,
+        );
 
         final state = container.read(llmRemoteDescriptionControllerProvider);
         expect(state, isA<AsyncError<String?>>());
@@ -89,13 +106,17 @@ void main() {
         expect(descriptionState, isNull);
 
         verify(
-          () => mockRepository.fetchLlmRemoteDescription(prompt: prompt),
+          () => mockRepository.fetchLlmRemoteDescription(
+            title: title,
+            prompt: prompt,
+          ),
         ).called(1);
       });
 
       test(
         'debe establecer estado loading durante la llamada a la API',
         () async {
+          const title = 'Test title';
           const prompt = 'Test prompt';
           const expectedContent = 'Descripción generada';
           final mockLlmRemote = LlmRemote(
@@ -103,7 +124,10 @@ void main() {
           );
 
           when(
-            () => mockRepository.fetchLlmRemoteDescription(prompt: prompt),
+            () => mockRepository.fetchLlmRemoteDescription(
+              title: title,
+              prompt: prompt,
+            ),
           ).thenAnswer((_) async {
             await Future.delayed(const Duration(milliseconds: 100));
             return mockLlmRemote;
@@ -124,7 +148,10 @@ void main() {
             }
           }, fireImmediately: true);
 
-          await controller.fetchLlmRemoteDescription(prompt: prompt);
+          await controller.fetchLlmRemoteDescription(
+            title: title,
+            prompt: prompt,
+          );
 
           expect(wasLoading, isTrue, reason: 'El estado nunca fue loading');
 

@@ -63,7 +63,7 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(child: MaterialApp.router(routerConfig: goRouter)),
       );
-      expect(find.text('Mis Tareas'), findsNWidgets(2));
+      expect(find.text('Mis Tareas'), findsOneWidget);
       expect(find.byType(Image), findsNWidgets(2));
       expect(find.byType(ListView), findsNothing);
       expect(find.byType(AdaptiveButton), findsOneWidget);
@@ -105,6 +105,8 @@ void main() {
       }
       await tester.pumpAndSettle();
       await tester.tap(find.byIcon(Icons.delete_outline));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Aceptar'));
       await tester.pumpAndSettle();
       expect(notifier.state, isEmpty);
     });

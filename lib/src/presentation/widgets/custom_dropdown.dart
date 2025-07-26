@@ -1,4 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../constants/string_constants.dart';
+import '../../core/platform/platform_utils.dart';
 
 class CustomDropdown<T> extends StatelessWidget {
   /// Todo el conjunto de ítems que quieres mostrar.
@@ -31,6 +36,51 @@ class CustomDropdown<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (isIOS) {
+      return _buildCupertinoDropdown(context);
+    }
+    return _buildMaterialDropdown(context);
+  }
+
+  Widget _buildCupertinoDropdown(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: CupertinoButton(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        onPressed: () => _showCupertinoPicker(context),
+        child: Row(
+          children: [
+            if (prefixIcon != null) ...[
+              Icon(prefixIcon, color: Colors.grey, size: 20),
+              const SizedBox(width: 12),
+            ],
+            Expanded(
+              child: Text(
+                value != null ? itemLabel(value as T) : hint,
+                style: TextStyle(
+                  color: value != null ? Colors.black : Colors.grey[500],
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            const Icon(Icons.keyboard_arrow_down, color: Colors.grey),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMaterialDropdown(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -86,6 +136,81 @@ class CustomDropdown<T> extends StatelessWidget {
         onChanged: onChanged,
         dropdownColor: Colors.white,
         icon: const Icon(Icons.keyboard_arrow_down, color: Colors.grey),
+      ),
+    );
+  }
+
+  void _showCupertinoPicker(BuildContext context) {
+    final List<T?> pickerItems = [null, ...items];
+
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => Container(
+        height: 216,
+        padding: const EdgeInsets.only(top: 6.0),
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        color: CupertinoColors.systemBackground.resolveFrom(context),
+        child: SafeArea(
+          top: false,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CupertinoButton(
+                    child: const Text(StringConstants.cancelButton),
+                    onPressed: () => context.pop(),
+                  ),
+                  CupertinoButton(
+                    child: const Text(StringConstants.acceptButton),
+                    onPressed: () => context.pop(),
+                  ),
+                ],
+              ),
+              Expanded(
+                child: CupertinoPicker(
+                  magnification: 1.2,
+                  squeeze: 1.2,
+                  useMagnifier: true,
+                  itemExtent: 32.0,
+                  scrollController: FixedExtentScrollController(
+                    initialItem: value != null
+                        ? items.indexOf(value as T) + 1
+                        : 0,
+                  ),
+                  onSelectedItemChanged: (int selectedIndex) {
+                    final selectedValue = selectedIndex == 0
+                        ? null
+                        : items[selectedIndex - 1];
+                    onChanged(selectedValue);
+                  },
+                  children: [
+                    Center(
+                      child: Text(
+                        hint,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey[500],
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ),
+                    ...items.map((T item) {
+                      return Center(
+                        child: Text(
+                          itemLabel(item),
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      );
+                    }),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

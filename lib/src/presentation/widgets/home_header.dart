@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../constants/string_constants.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({super.key, required this.title, required this.subtitle});
@@ -10,7 +13,10 @@ class HomeHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(Icons.task_outlined, color: Colors.black, size: 30.0),
+        SvgPicture.asset(
+          StringConstants.todoListLogo,
+          semanticsLabel: StringConstants.todoListLogo,
+        ),
         const SizedBox(width: 16),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -7,24 +7,22 @@ class CircleCheckBox extends StatelessWidget {
   const CircleCheckBox({super.key, required this.value, required this.onTap});
 
   @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 24,
-        height: 24,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: value ? const Color(0xFF4A6CF7) : Colors.transparent,
-          border: Border.all(
-            color: value ? const Color(0xFF4A6CF7) : Colors.grey[400]!,
-            width: 2,
-          ),
+  Widget build(BuildContext context) => GestureDetector(
+    onTap: onTap,
+    child: Container(
+      width: 24,
+      height: 24,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: value ? const Color(0xFF4A6CF7) : Colors.transparent,
+        border: Border.all(
+          color: value ? const Color(0xFF4A6CF7) : Colors.grey[400]!,
+          width: 2,
         ),
-        child: value
-            ? const Icon(Icons.check, color: Colors.white, size: 16)
-            : null,
       ),
-    );
-  }
+      child: value
+          ? const Icon(Icons.check, color: Colors.white, size: 16)
+          : null,
+    ),
+  );
 }

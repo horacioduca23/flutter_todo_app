@@ -19,7 +19,7 @@ class TaskLabel extends StatelessWidget {
     };
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(12.0),
@@ -28,8 +28,9 @@ class TaskLabel extends StatelessWidget {
         label.label,
         style: const TextStyle(
           color: Colors.white,
-          fontSize: 11,
+          fontSize: 13,
           fontWeight: FontWeight.w500,
+          decoration: TextDecoration.none,
         ),
       ),
     );

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../../../core/platform/platform_utils.dart';
 
-class AdaptiveAppBar extends StatelessWidget implements PreferredSizeWidget {
+class AdaptiveAppBar extends StatelessWidget
+    implements PreferredSizeWidget, ObstructingPreferredSizeWidget {
   final String title;
   final List<Widget>? actions;
   final Widget? leading;
@@ -42,5 +43,14 @@ class AdaptiveAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize {
+    return isIOS
+        ? const Size.fromHeight(44.0)
+        : const Size.fromHeight(kToolbarHeight);
+  }
+
+  @override
+  bool shouldFullyObstruct(BuildContext context) {
+    return true;
+  }
 }
