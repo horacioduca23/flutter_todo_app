@@ -9,7 +9,5 @@ Future<void> main() async {
 
   await dotenv.load(fileName: StringConstants.dotEnv);
 
-  //final sharedPreferences = await SharedPreferences.getInstance();
-
   runApp(const TodoApp());
 }

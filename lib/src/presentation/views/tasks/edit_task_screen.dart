@@ -9,17 +9,19 @@ import '../../../domain/task.dart';
 import '../../controllers/home_controllers/task_list_controller.dart';
 import '../../controllers/task_controllers/all_edit_fields_are_valid_controller.dart';
 import '../../controllers/task_controllers/description_controller.dart';
+import '../../controllers/task_controllers/prompt_description_controller.dart';
 import '../../controllers/task_controllers/task_label_controller.dart';
 import '../../controllers/task_controllers/title_controller.dart';
 import '../../controllers/task_controllers/user_assigned_controller.dart';
 import '../../widgets/adaptive/adaptive_app_bar.dart';
 import '../../widgets/adaptive/adaptive_button.dart';
 import '../../widgets/adaptive/adaptive_scaffold.dart';
+import '../../widgets/adaptive/adaptive_snack_bar.dart';
 import '../../widgets/custom_dropdown.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/field_section_title.dart';
+import '../../widgets/generate_with_ia_button.dart';
 import '../../widgets/task_form_header.dart';
-import 'add_task_screen.dart';
 
 class EditTaskScreen extends HookConsumerWidget {
   const EditTaskScreen({super.key, required this.task});
@@ -100,16 +102,13 @@ class EditTaskScreen extends HookConsumerWidget {
                   hintText: StringConstants.titleHint,
                   isLarge: true,
                   textInputAction: TextInputAction.next,
+                  maxLength: 50,
                   onChanged: (value) => ref
                       .read(titleControllerProvider.notifier)
                       .updateTitle(title: value),
                 ),
                 const SizedBox(height: 30),
-                Container(
-                  height: 1,
-                  margin: const EdgeInsets.symmetric(horizontal: 0),
-                  color: Colors.grey[300],
-                ),
+                Divider(color: Colors.grey[300], height: 1),
                 const SizedBox(height: 30),
                 const FieldSectionTitle(
                   title: StringConstants.generateDescriptionField,
@@ -122,9 +121,13 @@ class EditTaskScreen extends HookConsumerWidget {
                     color: Colors.purple,
                   ),
                   textInputAction: TextInputAction.done,
+                  maxLength: 250,
+                  onChanged: (value) => ref
+                      .read(promptDescriptionControllerProvider.notifier)
+                      .updatePromptDescription(prompt: value),
                 ),
                 const SizedBox(height: 15),
-                GenerateWithIaButton(promptController: promptController),
+                const GenerateWithIaButton(),
                 const SizedBox(height: 20),
                 const FieldSectionTitle(
                   title: StringConstants.descriptionField,
@@ -159,7 +162,7 @@ class EditTaskScreen extends HookConsumerWidget {
                 const FieldSectionTitle(title: StringConstants.labelField),
                 CustomDropdown<TaskLabelEnum>(
                   items: TaskLabelEnum.values,
-                  value: task.label,
+                  value: currentLabel,
                   onChanged: (newLabel) {
                     if (newLabel != null) {
                       ref
@@ -210,14 +213,12 @@ class EditTaskScreen extends HookConsumerWidget {
                             ),
                           );
 
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text(StringConstants.taskUpdatedSuccess),
-                          backgroundColor: Colors.green,
-                        ),
+                      AdaptiveSnackBar.showAndNavigate(
+                        context,
+                        message: StringConstants.taskUpdatedSuccess,
+                        backgroundColor: Colors.green,
+                        onNavigate: () => context.pop(),
                       );
-
-                      context.pop();
                     }
                   : null,
               color: const Color(0xFF4A6CF7),

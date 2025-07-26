@@ -2,12 +2,13 @@ abstract class StringConstants {
   static const String dotEnv = 'assets/env/.env';
   static const String allDoneGif = 'assets/images/all_done.gif';
   static const String contentChargingGif = 'assets/images/content_charging.gif';
+  static const String todoListLogo = 'assets/images/todo_list_logo.svg';
   static const String addTaskTitle = 'Agregar tarea';
   static const String titleField = 'Título';
   static const String titleHint = 'Qué estás planeando? 🤔';
   static const String generateDescriptionField = 'Genera descripción';
   static const String generateDescriptionHint =
-      'Describe tu tarea para generar detalles con IA';
+      '✨ Describe tu tarea para generar detalles con IA';
   static const String descriptionField = 'Descripción';
   static const String descriptionHint = 'Descripción de la tarea';
   static const String userField = 'Usuario';

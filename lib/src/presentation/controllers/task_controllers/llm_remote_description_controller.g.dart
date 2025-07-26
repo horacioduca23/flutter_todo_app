@@ -7,7 +7,7 @@ part of 'llm_remote_description_controller.dart';
 // **************************************************************************
 
 String _$llmRemoteDescriptionControllerHash() =>
-    r'399227eccd3e75e1bf257113f9ec191f437877ae';
+    r'62627ef887929cd8fb1f5e9e8d1cebe0f39ce889';
 
 /// See also [LlmRemoteDescriptionController].
 @ProviderFor(LlmRemoteDescriptionController)

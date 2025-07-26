@@ -9,11 +9,14 @@ class LlmRemoteRepository {
 
   final LlmRemoteDatasource _llmRemoteDatasource;
 
-  Future<LlmRemote> fetchLlmRemoteDescription({required String prompt}) async {
+  Future<LlmRemote> fetchLlmRemoteDescription({
+    required String title,
+    required String prompt,
+  }) async {
     LlmRemote llmRemote;
 
     final LlmRemoteDto llmRemoteDto = await _llmRemoteDatasource
-        .fetchLlmResponse(prompt: prompt);
+        .fetchLlmResponse(title: title, prompt: prompt);
 
     llmRemote = llmRemoteDto.toModel();
 

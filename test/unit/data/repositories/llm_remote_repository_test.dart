@@ -22,6 +22,7 @@ void main() {
     test(
       'fetchLlmRemoteDescription retorna el modelo esperado (caso éxito)',
       () async {
+        const title = 'test title';
         const prompt = 'test prompt';
         final dto = LlmRemoteDto(
           choices: [ChoiceDto(message: MessageDto(content: 'contenido'))],
@@ -31,10 +32,11 @@ void main() {
         );
 
         when(
-          () => mockDatasource.fetchLlmResponse(prompt: prompt),
+          () => mockDatasource.fetchLlmResponse(title: title, prompt: prompt),
         ).thenAnswer((_) async => dto);
 
         final result = await repository.fetchLlmRemoteDescription(
+          title: title,
           prompt: prompt,
         );
 
@@ -43,25 +45,33 @@ void main() {
           result.choices.first.message.content,
           expectedModel.choices.first.message.content,
         );
-        verify(() => mockDatasource.fetchLlmResponse(prompt: prompt)).called(1);
+        verify(
+          () => mockDatasource.fetchLlmResponse(title: title, prompt: prompt),
+        ).called(1);
       },
     );
 
     test(
       'fetchLlmRemoteDescription propaga la excepción del datasource',
       () async {
+        const title = 'test title';
         const prompt = 'test prompt';
         final exception = Exception('Datasource error');
 
         when(
-          () => mockDatasource.fetchLlmResponse(prompt: prompt),
+          () => mockDatasource.fetchLlmResponse(title: title, prompt: prompt),
         ).thenThrow(exception);
 
         expect(
-          () => repository.fetchLlmRemoteDescription(prompt: prompt),
+          () => repository.fetchLlmRemoteDescription(
+            title: title,
+            prompt: prompt,
+          ),
           throwsA(exception),
         );
-        verify(() => mockDatasource.fetchLlmResponse(prompt: prompt)).called(1);
+        verify(
+          () => mockDatasource.fetchLlmResponse(title: title, prompt: prompt),
+        ).called(1);
       },
     );
   });

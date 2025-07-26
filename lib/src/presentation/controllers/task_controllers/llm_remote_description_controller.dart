@@ -14,7 +14,10 @@ class LlmRemoteDescriptionController extends _$LlmRemoteDescriptionController {
     return null;
   }
 
-  Future<void> fetchLlmRemoteDescription({required String prompt}) async {
+  Future<void> fetchLlmRemoteDescription({
+    required String title,
+    required String prompt,
+  }) async {
     state = const AsyncValue.loading();
 
     try {
@@ -23,7 +26,7 @@ class LlmRemoteDescriptionController extends _$LlmRemoteDescriptionController {
       );
 
       final LlmRemote result = await llmRemoteRepository
-          .fetchLlmRemoteDescription(prompt: prompt);
+          .fetchLlmRemoteDescription(title: title, prompt: prompt);
 
       ref
           .read(descriptionControllerProvider.notifier)

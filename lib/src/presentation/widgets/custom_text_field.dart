@@ -15,6 +15,7 @@ class AdaptiveTextField extends StatelessWidget {
     this.prefixIcon,
     this.isLarge = false,
     this.onChanged,
+    this.maxLength,
   });
 
   final TextEditingController controller;
@@ -26,6 +27,7 @@ class AdaptiveTextField extends StatelessWidget {
   final Widget? prefixIcon;
   final bool isLarge;
   final void Function(String)? onChanged;
+  final int? maxLength;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class AdaptiveTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 4,
               offset: const Offset(0, 2),
             ),
@@ -47,16 +49,20 @@ class AdaptiveTextField extends StatelessWidget {
           controller: controller,
           placeholder: hintText,
           padding: EdgeInsets.symmetric(
-            horizontal: 16,
+            horizontal: isLarge ? 16 : 8,
             vertical: isLarge ? 20 : 16,
           ),
-          prefix: prefixIcon,
+          prefix: Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: prefixIcon,
+          ),
           style: TextStyle(
             fontSize: isLarge ? 18 : 16,
             fontWeight: isLarge ? FontWeight.w500 : FontWeight.normal,
           ),
           minLines: minLines,
           maxLines: maxLines,
+          maxLength: maxLength,
           keyboardType: keyboardType,
           textInputAction: textInputAction,
           onChanged: onChanged,
@@ -68,14 +74,14 @@ class AdaptiveTextField extends StatelessWidget {
         ),
       );
     }
-    // Material
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 4,
             offset: const Offset(0, 2),
           ),
@@ -84,6 +90,7 @@ class AdaptiveTextField extends StatelessWidget {
       child: TextField(
         controller: controller,
         maxLines: maxLines,
+        maxLength: maxLength,
         textInputAction: textInputAction,
         keyboardType: keyboardType,
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(

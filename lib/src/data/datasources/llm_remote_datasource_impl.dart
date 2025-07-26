@@ -11,7 +11,10 @@ class LlmRemoteDatasourceImpl implements LlmRemoteDatasource {
   late Client client = Client();
 
   @override
-  Future<LlmRemoteDto> fetchLlmResponse({required String prompt}) async {
+  Future<LlmRemoteDto> fetchLlmResponse({
+    required String title,
+    required String prompt,
+  }) async {
     LlmRemoteDto llmRemoteDTO;
 
     final Uri uri = Uri.parse(
@@ -20,7 +23,7 @@ class LlmRemoteDatasourceImpl implements LlmRemoteDatasource {
 
     final Map<String, dynamic> payload = {
       "messages": [
-        {"role": "user", "content": prompt},
+        {"role": "user", "content": "$title\n$prompt"},
         {
           "role": "system",
           "content":

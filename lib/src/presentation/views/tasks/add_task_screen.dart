@@ -10,17 +10,18 @@ import '../../../domain/task.dart';
 import '../../controllers/home_controllers/task_list_controller.dart';
 import '../../controllers/task_controllers/all_fields_are_valid_controller.dart';
 import '../../controllers/task_controllers/description_controller.dart';
-import '../../controllers/task_controllers/llm_remote_description_controller.dart';
+import '../../controllers/task_controllers/prompt_description_controller.dart';
 import '../../controllers/task_controllers/task_label_controller.dart';
 import '../../controllers/task_controllers/title_controller.dart';
 import '../../controllers/task_controllers/user_assigned_controller.dart';
 import '../../widgets/adaptive/adaptive_app_bar.dart';
 import '../../widgets/adaptive/adaptive_button.dart';
-import '../../widgets/adaptive/adaptive_progress_indicator.dart';
 import '../../widgets/adaptive/adaptive_scaffold.dart';
+import '../../widgets/adaptive/adaptive_snack_bar.dart';
 import '../../widgets/custom_dropdown.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/field_section_title.dart';
+import '../../widgets/generate_with_ia_button.dart';
 import '../../widgets/task_form_header.dart';
 
 class AddTaskScreen extends HookConsumerWidget {
@@ -53,6 +54,7 @@ class AddTaskScreen extends HookConsumerWidget {
         ),
         backgroundColor: Colors.white,
       ),
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -69,6 +71,7 @@ class AddTaskScreen extends HookConsumerWidget {
                   hintText: StringConstants.titleHint,
                   isLarge: true,
                   textInputAction: TextInputAction.next,
+                  maxLength: 50,
                   onChanged: (value) => ref
                       .read(titleControllerProvider.notifier)
                       .updateTitle(title: value),
@@ -91,9 +94,13 @@ class AddTaskScreen extends HookConsumerWidget {
                     color: Colors.purple,
                   ),
                   textInputAction: TextInputAction.done,
+                  maxLength: 250,
+                  onChanged: (value) => ref
+                      .read(promptDescriptionControllerProvider.notifier)
+                      .updatePromptDescription(prompt: value),
                 ),
                 const SizedBox(height: 15),
-                GenerateWithIaButton(promptController: promptController),
+                const GenerateWithIaButton(),
                 const SizedBox(height: 20),
                 const FieldSectionTitle(
                   title: StringConstants.descriptionField,
@@ -179,14 +186,12 @@ class AddTaskScreen extends HookConsumerWidget {
                             ),
                           );
 
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text(StringConstants.taskAddedSuccess),
-                          backgroundColor: Colors.green,
-                        ),
+                      AdaptiveSnackBar.showAndNavigate(
+                        context,
+                        message: StringConstants.taskAddedSuccess,
+                        backgroundColor: Colors.green,
+                        onNavigate: () => context.pop(),
                       );
-
-                      context.pop();
                     }
                   : null,
               color: const Color(0xFF4A6CF7),
@@ -202,52 +207,6 @@ class AddTaskScreen extends HookConsumerWidget {
           ),
         ),
       ),
-      backgroundColor: Colors.white,
-    );
-  }
-}
-
-class GenerateWithIaButton extends ConsumerWidget {
-  const GenerateWithIaButton({super.key, required this.promptController});
-
-  final TextEditingController promptController;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final AsyncValue<String?> llmRemoteDescriptionData = ref.watch(
-      llmRemoteDescriptionControllerProvider,
-    );
-
-    return llmRemoteDescriptionData.when(
-      data: (description) {
-        return SizedBox(
-          width: double.infinity,
-          height: 48,
-          child: OutlinedButton.icon(
-            onPressed: () async {
-              ref
-                  .read(llmRemoteDescriptionControllerProvider.notifier)
-                  .fetchLlmRemoteDescription(prompt: promptController.text);
-            },
-            icon: const Icon(Icons.auto_awesome),
-            label: Text(StringConstants.generateWithIaButton),
-            style: OutlinedButton.styleFrom(
-              foregroundColor: Colors.purple,
-              side: const BorderSide(color: Colors.purple),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
-          ),
-        );
-      },
-      error: (error, stack) {
-        return Text(
-          StringConstants.errorPrefix + error.toString(),
-          style: const TextStyle(color: Colors.red),
-        );
-      },
-      loading: () => const Center(child: AdaptiveProgressIndicator()),
     );
   }
 }

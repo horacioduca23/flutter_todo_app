@@ -30,6 +30,7 @@ void main() {
       'fetchLlmResponse retorna LlmRemoteDto si la respuesta es 200',
       () async {
         const prompt = 'Hola!';
+        const title = 'Título de prueba';
         final fakeResponse = {
           'choices': [
             {
@@ -45,7 +46,10 @@ void main() {
           ),
         ).thenAnswer((_) async => http.Response(jsonEncode(fakeResponse), 200));
 
-        final result = await datasource.fetchLlmResponse(prompt: prompt);
+        final result = await datasource.fetchLlmResponse(
+          title: title,
+          prompt: prompt,
+        );
         expect(result, isA<LlmRemoteDto>());
         expect(result.choices.first.message.content, 'respuesta generada');
         verify(
@@ -62,6 +66,7 @@ void main() {
       'fetchLlmResponse lanza excepción si la respuesta no es 200',
       () async {
         const prompt = 'Hola!';
+        const title = 'Título de prueba';
         when(
           () => mockClient.post(
             fakeUri,
@@ -71,7 +76,7 @@ void main() {
         ).thenAnswer((_) async => http.Response('Error', 500));
 
         expect(
-          () => datasource.fetchLlmResponse(prompt: prompt),
+          () => datasource.fetchLlmResponse(title: title, prompt: prompt),
           throwsA(isA<Exception>()),
         );
         verify(
