@@ -15,13 +15,14 @@ import '../../controllers/task_controllers/task_label_controller.dart';
 import '../../controllers/task_controllers/title_controller.dart';
 import '../../controllers/task_controllers/user_assigned_controller.dart';
 import '../../widgets/adaptive/adaptive_app_bar.dart';
-import '../../widgets/adaptive/adaptive_button.dart';
 import '../../widgets/adaptive/adaptive_scaffold.dart';
 import '../../widgets/adaptive/adaptive_snack_bar.dart';
+import '../../widgets/adaptive_text_field.dart';
+import '../../widgets/character_counter.dart';
 import '../../widgets/custom_dropdown.dart';
-import '../../widgets/custom_text_field.dart';
 import '../../widgets/field_section_title.dart';
 import '../../widgets/generate_with_ia_button.dart';
+import '../../widgets/task_bottom_bar.dart';
 import '../../widgets/task_form_header.dart';
 
 class AddTaskScreen extends HookConsumerWidget {
@@ -71,17 +72,18 @@ class AddTaskScreen extends HookConsumerWidget {
                   hintText: StringConstants.titleHint,
                   isLarge: true,
                   textInputAction: TextInputAction.next,
+                  showCounter: false,
                   maxLength: 50,
                   onChanged: (value) => ref
                       .read(titleControllerProvider.notifier)
                       .updateTitle(title: value),
                 ),
-                const SizedBox(height: 30),
-                Container(
-                  height: 1,
-                  margin: const EdgeInsets.symmetric(horizontal: 0),
-                  color: Colors.grey[300],
+                CharacterCounter(
+                  currentLength: titleController.text.length,
+                  maxLength: 50,
                 ),
+                const SizedBox(height: 30),
+                Divider(color: Colors.grey[300], height: 1),
                 const SizedBox(height: 30),
                 const FieldSectionTitle(
                   title: StringConstants.generateDescriptionField,
@@ -94,10 +96,15 @@ class AddTaskScreen extends HookConsumerWidget {
                     color: Colors.purple,
                   ),
                   textInputAction: TextInputAction.done,
+                  showCounter: false,
                   maxLength: 250,
                   onChanged: (value) => ref
                       .read(promptDescriptionControllerProvider.notifier)
                       .updatePromptDescription(prompt: value),
+                ),
+                CharacterCounter(
+                  currentLength: promptController.text.length,
+                  maxLength: 250,
                 ),
                 const SizedBox(height: 15),
                 const GenerateWithIaButton(),
@@ -153,59 +160,32 @@ class AddTaskScreen extends HookConsumerWidget {
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.1),
-              blurRadius: 10,
-              offset: const Offset(0, -2),
-            ),
-          ],
-        ),
-        child: SafeArea(
-          child: SizedBox(
-            width: double.infinity,
-            height: 56,
-            child: AdaptiveButton(
-              onPressed: areAllFieldsFilled && label != null
-                  ? () {
-                      ref
-                          .read(taskListControllerProvider.notifier)
-                          .addTask(
-                            task: Task(
-                              description: descriptionController.text,
-                              id: DateTime.now().toString(),
-                              isCompleted: false,
-                              label: label,
-                              status: TaskStatusEnum.pending,
-                              title: titleController.text,
-                              userAssigned: userAssignedController.text,
-                            ),
-                          );
+      bottomNavigationBar: TaskBottomBar(
+        title: StringConstants.addTaskButton,
+        onPressed: areAllFieldsFilled && label != null
+            ? () {
+                ref
+                    .read(taskListControllerProvider.notifier)
+                    .addTask(
+                      task: Task(
+                        description: descriptionController.text,
+                        id: DateTime.now().toString(),
+                        isCompleted: false,
+                        label: label.name,
+                        status: TaskStatusEnum.pending.name,
+                        title: titleController.text,
+                        userAssigned: userAssignedController.text,
+                      ),
+                    );
 
-                      AdaptiveSnackBar.showAndNavigate(
-                        context,
-                        message: StringConstants.taskAddedSuccess,
-                        backgroundColor: Colors.green,
-                        onNavigate: () => context.pop(),
-                      );
-                    }
-                  : null,
-              color: const Color(0xFF4A6CF7),
-              borderRadius: BorderRadius.circular(12),
-              child: Text(
-                StringConstants.addTaskButton,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ),
-        ),
+                AdaptiveSnackBar.showAndNavigate(
+                  context,
+                  message: StringConstants.taskAddedSuccess,
+                  backgroundColor: Colors.green,
+                  onNavigate: () => context.pop(),
+                );
+              }
+            : null,
       ),
     );
   }

@@ -13,14 +13,14 @@ String _$allFieldsAreValidControllerHash() =>
 @ProviderFor(AllFieldsAreValidController)
 final allFieldsAreValidControllerProvider =
     AutoDisposeNotifierProvider<AllFieldsAreValidController, bool>.internal(
-      AllFieldsAreValidController.new,
-      name: r'allFieldsAreValidControllerProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$allFieldsAreValidControllerHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+  AllFieldsAreValidController.new,
+  name: r'allFieldsAreValidControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$allFieldsAreValidControllerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
 
 typedef _$AllFieldsAreValidController = AutoDisposeNotifier<bool>;
 // ignore_for_file: type=lint

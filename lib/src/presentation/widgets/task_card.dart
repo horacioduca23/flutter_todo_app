@@ -95,7 +95,7 @@ class TaskCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 if (task.label != null) ...[
-                  TaskLabel(label: task.label!),
+                  TaskLabel(label: task.labelEnum),
                   const SizedBox(height: 4),
                 ],
                 if (task.userAssigned.isNotEmpty) ...[
@@ -106,7 +106,7 @@ class TaskCard extends StatelessWidget {
                   const SizedBox(height: 4),
                 ],
                 Text(
-                  task.status.label,
+                  task.statusEnum.label,
                   textAlign: TextAlign.right,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: task.isCompleted

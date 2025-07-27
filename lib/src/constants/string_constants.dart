@@ -30,5 +30,7 @@ abstract class StringConstants {
       '¿Estás seguro que deseas borrar todas las tareas?';
   static const String cancelButton = 'Cancelar';
   static const String acceptButton = 'Aceptar';
-  static const String minimalTodoApp = 'ToDo App';
+  static const String todoApp = 'ToDo App';
+  static const String loadingTasks = 'Cargando tareas...';
+  static const String errorLoadingTasks = 'Error al cargar tareas';
 }

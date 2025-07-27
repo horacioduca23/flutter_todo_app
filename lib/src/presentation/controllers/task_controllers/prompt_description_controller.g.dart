@@ -13,14 +13,14 @@ String _$promptDescriptionControllerHash() =>
 @ProviderFor(PromptDescriptionController)
 final promptDescriptionControllerProvider =
     AutoDisposeNotifierProvider<PromptDescriptionController, String>.internal(
-      PromptDescriptionController.new,
-      name: r'promptDescriptionControllerProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$promptDescriptionControllerHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+  PromptDescriptionController.new,
+  name: r'promptDescriptionControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$promptDescriptionControllerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
 
 typedef _$PromptDescriptionController = AutoDisposeNotifier<String>;
 // ignore_for_file: type=lint

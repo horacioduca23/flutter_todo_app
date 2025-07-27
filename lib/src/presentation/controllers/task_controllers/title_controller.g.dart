@@ -12,14 +12,14 @@ String _$titleControllerHash() => r'015d19f0bb194703359218b18c708c97be65477e';
 @ProviderFor(TitleController)
 final titleControllerProvider =
     AutoDisposeNotifierProvider<TitleController, String>.internal(
-      TitleController.new,
-      name: r'titleControllerProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$titleControllerHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+  TitleController.new,
+  name: r'titleControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$titleControllerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
 
 typedef _$TitleController = AutoDisposeNotifier<String>;
 // ignore_for_file: type=lint

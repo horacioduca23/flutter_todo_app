@@ -1,3 +1,4 @@
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../domain/enum/task_label_enum.dart';
@@ -10,7 +11,7 @@ part 'all_edit_fields_are_valid_controller.g.dart';
 
 @riverpod
 bool allEditFieldsAreValidController(
-  AllEditFieldsAreValidControllerRef ref, {
+  Ref ref, {
   required String initialTitle,
   required String? initialDescription,
   required String initialUserAssigned,

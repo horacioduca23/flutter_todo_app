@@ -3,7 +3,7 @@ enum TaskLabelEnum {
   backend('Backend'),
   qa('QA'),
   testing('Testing'),
-  otro('Otro');
+  other('Otro');
 
   const TaskLabelEnum(this.label);
 

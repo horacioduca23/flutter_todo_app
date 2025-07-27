@@ -15,7 +15,7 @@ class TaskLabel extends StatelessWidget {
       TaskLabelEnum.backend => AppColors.backend,
       TaskLabelEnum.qa => AppColors.qa,
       TaskLabelEnum.testing => AppColors.testing,
-      TaskLabelEnum.otro => AppColors.other,
+      TaskLabelEnum.other => AppColors.other,
     };
 
     return Container(

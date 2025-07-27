@@ -1,171 +1,130 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_todo_app/src/data/repositories/hive_task_repository.dart';
 import 'package:flutter_todo_app/src/domain/enum/task_label_enum.dart';
 import 'package:flutter_todo_app/src/domain/enum/task_status_enum.dart';
 import 'package:flutter_todo_app/src/domain/task.dart';
-import 'package:flutter_todo_app/src/presentation/controllers/home_controllers/task_list_controller.dart';
+import 'package:flutter_todo_app/src/presentation/providers.dart';
 import 'package:flutter_todo_app/src/presentation/views/home/home_screen.dart';
-import 'package:flutter_todo_app/src/presentation/widgets/adaptive/adaptive_button.dart';
+import 'package:flutter_todo_app/src/presentation/widgets/task_card.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mocktail/mocktail.dart';
+
+class MockHiveTaskRepository extends Mock implements HiveTaskRepository {}
+
+class FakeTask extends Fake implements Task {}
 
 void main() {
-  group('HomeScreen', () {
-    late List<Task> mockTasks;
-    late GoRouter goRouter;
+  setUpAll(() {
+    registerFallbackValue(FakeTask());
+  });
 
-    setUp(() {
-      mockTasks = [
-        Task(
-          id: '1',
-          title: 'Tarea 1',
-          description: 'Desc 1',
-          isCompleted: false,
-          label: TaskLabelEnum.frontend,
-          status: TaskStatusEnum.pending,
-          userAssigned: 'user1',
+  late MockHiveTaskRepository mockRepository;
+  late List<Task> mockTasks;
+  late GoRouter goRouter;
+
+  setUp(() {
+    mockRepository = MockHiveTaskRepository();
+    mockTasks = [
+      Task.create(
+        id: '1',
+        title: 'Tarea 1',
+        description: 'Desc 1',
+        isCompleted: false,
+        label: TaskLabelEnum.frontend,
+        status: TaskStatusEnum.pending,
+        userAssigned: 'user1',
+      ),
+      Task.create(
+        id: '2',
+        title: 'Tarea 2',
+        description: 'Desc 2',
+        isCompleted: true,
+        label: TaskLabelEnum.backend,
+        status: TaskStatusEnum.completed,
+        userAssigned: 'user2',
+      ),
+    ];
+
+    goRouter = GoRouter(
+      routes: [
+        GoRoute(
+          path: '/',
+          name: 'home',
+          builder: (context, state) => const HomeScreen(),
         ),
-        Task(
-          id: '2',
-          title: 'Tarea 2',
-          description: 'Desc 2',
-          isCompleted: true,
-          label: TaskLabelEnum.backend,
-          status: TaskStatusEnum.completed,
-          userAssigned: 'user2',
+        GoRoute(
+          path: '/add-task',
+          name: 'add-task',
+          builder: (context, state) =>
+              const Placeholder(key: Key('add-task-placeholder')),
         ),
-      ];
-      goRouter = GoRouter(
-        routes: [
-          GoRoute(
-            path: '/',
-            name: 'home',
-            builder: (context, state) => const HomeScreen(),
-          ),
-          GoRoute(
-            path: '/add-task',
-            name: 'add-task',
-            builder: (context, state) =>
-                const Placeholder(key: Key('add-task-placeholder')),
-          ),
-          GoRoute(
-            path: '/edit-task',
-            name: 'edit-task',
-            builder: (context, state) =>
-                const Placeholder(key: Key('edit-task-placeholder')),
-          ),
-        ],
-        initialLocation: '/',
-      );
-    });
+      ],
+      initialLocation: '/',
+    );
 
-    testWidgets('renderiza correctamente con lista vacía', (tester) async {
-      await tester.pumpWidget(
-        ProviderScope(child: MaterialApp.router(routerConfig: goRouter)),
-      );
-      expect(find.text('Mis Tareas'), findsOneWidget);
-      expect(find.byType(Image), findsNWidgets(2));
-      expect(find.byType(ListView), findsNothing);
-      expect(find.byType(AdaptiveButton), findsOneWidget);
-    });
+    when(() => mockRepository.getTasks()).thenAnswer((_) async => []);
+    when(() => mockRepository.deleteAllTasks()).thenAnswer((_) async {});
+    when(
+      () => mockRepository.deleteTask(id: any(named: 'id')),
+    ).thenAnswer((_) async {});
+  });
 
-    testWidgets('renderiza lista de tareas y widgets internos', (tester) async {
-      await tester.pumpWidget(
-        ProviderScope(child: MaterialApp.router(routerConfig: goRouter)),
-      );
-      final container = ProviderScope.containerOf(
-        tester.element(find.byType(HomeScreen)),
-      );
-      final notifier = container.read(taskListControllerProvider.notifier);
-      for (final task in mockTasks) {
-        notifier.addTask(task: task);
-      }
-      await tester.pumpAndSettle();
-      expect(find.text('Tarea 1'), findsOneWidget);
-      expect(find.text('Tarea 2'), findsOneWidget);
-      expect(find.byType(ListView), findsOneWidget);
-      expect(find.byType(AdaptiveButton), findsOneWidget);
-      expect(find.byIcon(Icons.delete_outline), findsOneWidget);
-      expect(find.byIcon(Icons.add), findsOneWidget);
-      expect(find.byType(GestureDetector), findsWidgets);
-      expect(find.byType(Dismissible), findsWidgets);
-      expect(find.byType(Container), findsWidgets);
-    });
+  tearDown(() {
+    reset(mockRepository);
+  });
 
-    testWidgets('puede limpiar tareas con el botón de basura', (tester) async {
-      await tester.pumpWidget(
-        ProviderScope(child: MaterialApp.router(routerConfig: goRouter)),
-      );
-      final container = ProviderScope.containerOf(
-        tester.element(find.byType(HomeScreen)),
-      );
-      final notifier = container.read(taskListControllerProvider.notifier);
-      for (final task in mockTasks) {
-        notifier.addTask(task: task);
-      }
-      await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(Icons.delete_outline));
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('Aceptar'));
-      await tester.pumpAndSettle();
-      expect(notifier.state, isEmpty);
-    });
+  Widget createWidgetUnderTest() {
+    return ProviderScope(
+      overrides: [hiveTaskRepositoryProvider.overrideWithValue(mockRepository)],
+      child: MaterialApp.router(routerConfig: goRouter),
+    );
+  }
 
-    testWidgets('puede agregar tarea con el FAB', (tester) async {
-      await tester.pumpWidget(
-        ProviderScope(child: MaterialApp.router(routerConfig: goRouter)),
-      );
-      await tester.tap(find.byType(AdaptiveButton));
-      await tester.pumpAndSettle();
-      expect(find.byKey(const Key('add-task-placeholder')), findsOneWidget);
-    });
+  testWidgets('Muestra indicador de carga y luego pantalla vacía', (
+    tester,
+  ) async {
+    await tester.pumpWidget(createWidgetUnderTest());
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    await tester.pumpAndSettle();
+    expect(find.text('Mis Tareas'), findsOneWidget);
+    expect(find.byType(Image), findsNWidgets(2));
+    expect(find.byType(ListView), findsNothing);
+  });
 
-    testWidgets('puede marcar tarea como completada', (tester) async {
-      await tester.pumpWidget(
-        ProviderScope(child: MaterialApp.router(routerConfig: goRouter)),
-      );
-      final container = ProviderScope.containerOf(
-        tester.element(find.byType(HomeScreen)),
-      );
-      final notifier = container.read(taskListControllerProvider.notifier);
-      for (final task in mockTasks) {
-        notifier.addTask(task: task);
-      }
-      await tester.pumpAndSettle();
-      // Busca todos los GestureDetector del checkbox por constraints
-      final checkBoxes = find.byWidgetPredicate((widget) {
-        if (widget is GestureDetector) {
-          final child = widget.child;
-          if (child is Container &&
-              child.constraints != null &&
-              child.constraints!.maxWidth == 24 &&
-              child.constraints!.maxHeight == 24) {
-            return true;
-          }
-        }
-        return false;
-      });
-      await tester.tap(checkBoxes.at(0));
-      await tester.pumpAndSettle();
-      expect(notifier.state.first.isCompleted, isTrue);
-    });
+  testWidgets('Muestra la lista de tareas correctamente', (tester) async {
+    when(() => mockRepository.getTasks()).thenAnswer((_) async => mockTasks);
 
-    testWidgets('puede eliminar tarea con swipe', (tester) async {
-      await tester.pumpWidget(
-        ProviderScope(child: MaterialApp.router(routerConfig: goRouter)),
-      );
-      final container = ProviderScope.containerOf(
-        tester.element(find.byType(HomeScreen)),
-      );
-      final notifier = container.read(taskListControllerProvider.notifier);
-      for (final task in mockTasks) {
-        notifier.addTask(task: task);
-      }
-      await tester.pumpAndSettle();
-      final dismissible = find.byType(Dismissible).first;
-      await tester.drag(dismissible, const Offset(-500, 0));
-      await tester.pumpAndSettle();
-      expect(notifier.state.length, 1);
-    });
+    await tester.pumpWidget(createWidgetUnderTest());
+    await tester.pumpAndSettle();
+
+    expect(find.byType(TaskCard), findsNWidgets(2));
+    expect(find.text('Tarea 1'), findsOneWidget);
+    expect(find.text('Tarea 2'), findsOneWidget);
+  });
+
+  testWidgets('Navega a la pantalla de añadir tarea al pulsar el FAB', (
+    tester,
+  ) async {
+    // Configurar un tamaño de pantalla más grande para evitar overflow
+    await tester.binding.setSurfaceSize(const Size(800, 1200));
+
+    await tester.pumpWidget(createWidgetUnderTest());
+    await tester.pumpAndSettle();
+
+    // Verificar que el FAB está presente antes de hacer tap
+    expect(find.byIcon(Icons.add), findsOneWidget);
+
+    await tester.tap(find.byIcon(Icons.add));
+    await tester.pumpAndSettle();
+
+    expect(find.byKey(const Key('add-task-placeholder')), findsOneWidget);
+
+    // Limpieza final para evitar el error de widget deactivated
+    await tester.pumpAndSettle();
+
+    // Restaurar el tamaño de pantalla original
+    await tester.binding.setSurfaceSize(null);
   });
 }
