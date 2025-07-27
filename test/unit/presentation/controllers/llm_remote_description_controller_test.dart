@@ -137,7 +137,6 @@ void main() {
             llmRemoteDescriptionControllerProvider.notifier,
           );
 
-          // Usar un listener para capturar loading
           bool wasLoading = false;
           final sub = container.listen(llmRemoteDescriptionControllerProvider, (
             prev,

@@ -92,26 +92,27 @@ class AllEditFieldsAreValidControllerProvider
     required String initialUserAssigned,
     required TaskLabelEnum? initialLabel,
   }) : this._internal(
-         (ref) => allEditFieldsAreValidController(
-           ref as AllEditFieldsAreValidControllerRef,
-           initialTitle: initialTitle,
-           initialDescription: initialDescription,
-           initialUserAssigned: initialUserAssigned,
-           initialLabel: initialLabel,
-         ),
-         from: allEditFieldsAreValidControllerProvider,
-         name: r'allEditFieldsAreValidControllerProvider',
-         debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-             ? null
-             : _$allEditFieldsAreValidControllerHash,
-         dependencies: AllEditFieldsAreValidControllerFamily._dependencies,
-         allTransitiveDependencies:
-             AllEditFieldsAreValidControllerFamily._allTransitiveDependencies,
-         initialTitle: initialTitle,
-         initialDescription: initialDescription,
-         initialUserAssigned: initialUserAssigned,
-         initialLabel: initialLabel,
-       );
+          (ref) => allEditFieldsAreValidController(
+            ref as AllEditFieldsAreValidControllerRef,
+            initialTitle: initialTitle,
+            initialDescription: initialDescription,
+            initialUserAssigned: initialUserAssigned,
+            initialLabel: initialLabel,
+          ),
+          from: allEditFieldsAreValidControllerProvider,
+          name: r'allEditFieldsAreValidControllerProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$allEditFieldsAreValidControllerHash,
+          dependencies: AllEditFieldsAreValidControllerFamily._dependencies,
+          allTransitiveDependencies:
+              AllEditFieldsAreValidControllerFamily._allTransitiveDependencies,
+          initialTitle: initialTitle,
+          initialDescription: initialDescription,
+          initialUserAssigned: initialUserAssigned,
+          initialLabel: initialLabel,
+        );
 
   AllEditFieldsAreValidControllerProvider._internal(
     super._createNotifier, {
@@ -212,6 +213,5 @@ class _AllEditFieldsAreValidControllerProviderElement
   TaskLabelEnum? get initialLabel =>
       (origin as AllEditFieldsAreValidControllerProvider).initialLabel;
 }
-
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -11,19 +11,16 @@ String _$llmRemoteDescriptionControllerHash() =>
 
 /// See also [LlmRemoteDescriptionController].
 @ProviderFor(LlmRemoteDescriptionController)
-final llmRemoteDescriptionControllerProvider =
-    AutoDisposeAsyncNotifierProvider<
-      LlmRemoteDescriptionController,
-      String?
-    >.internal(
-      LlmRemoteDescriptionController.new,
-      name: r'llmRemoteDescriptionControllerProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$llmRemoteDescriptionControllerHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+final llmRemoteDescriptionControllerProvider = AutoDisposeAsyncNotifierProvider<
+    LlmRemoteDescriptionController, String?>.internal(
+  LlmRemoteDescriptionController.new,
+  name: r'llmRemoteDescriptionControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$llmRemoteDescriptionControllerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
 
 typedef _$LlmRemoteDescriptionController = AutoDisposeAsyncNotifier<String?>;
 // ignore_for_file: type=lint

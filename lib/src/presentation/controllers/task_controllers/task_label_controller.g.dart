@@ -13,14 +13,14 @@ String _$taskLabelControllerHash() =>
 @ProviderFor(TaskLabelController)
 final taskLabelControllerProvider =
     AutoDisposeNotifierProvider<TaskLabelController, TaskLabelEnum?>.internal(
-      TaskLabelController.new,
-      name: r'taskLabelControllerProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$taskLabelControllerHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+  TaskLabelController.new,
+  name: r'taskLabelControllerProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$taskLabelControllerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
 
 typedef _$TaskLabelController = AutoDisposeNotifier<TaskLabelEnum?>;
 // ignore_for_file: type=lint

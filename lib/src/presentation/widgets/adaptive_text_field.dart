@@ -16,6 +16,7 @@ class AdaptiveTextField extends StatelessWidget {
     this.isLarge = false,
     this.onChanged,
     this.maxLength,
+    this.showCounter = true,
   });
 
   final TextEditingController controller;
@@ -28,6 +29,7 @@ class AdaptiveTextField extends StatelessWidget {
   final bool isLarge;
   final void Function(String)? onChanged;
   final int? maxLength;
+  final bool showCounter;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +64,7 @@ class AdaptiveTextField extends StatelessWidget {
           ),
           minLines: minLines,
           maxLines: maxLines,
-          maxLength: maxLength,
+          maxLength: showCounter ? maxLength : null,
           keyboardType: keyboardType,
           textInputAction: textInputAction,
           onChanged: onChanged,
@@ -90,13 +92,13 @@ class AdaptiveTextField extends StatelessWidget {
       child: TextField(
         controller: controller,
         maxLines: maxLines,
-        maxLength: maxLength,
         textInputAction: textInputAction,
         keyboardType: keyboardType,
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
           fontSize: isLarge ? 18 : 16,
           fontWeight: isLarge ? FontWeight.w500 : FontWeight.normal,
         ),
+        maxLength: maxLength,
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -122,6 +124,7 @@ class AdaptiveTextField extends StatelessWidget {
             horizontal: 16,
             vertical: isLarge ? 20 : 16,
           ),
+          counterText: showCounter ? null : '',
         ),
         onChanged: onChanged,
       ),
