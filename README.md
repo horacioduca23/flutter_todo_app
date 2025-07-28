@@ -37,6 +37,18 @@ Una aplicación de tareas moderna y elegante construida con Flutter que combina 
 
 ---
 
+## 🎥 Demo de la Aplicación
+
+### 📱 Demostración en Android
+[![Demo Android](https://img.shields.io/badge/Ver_Demo_Android-FF0000?style=for-the-badge&logo=android&logoColor=white)](https://vimeo.com/1105011995)
+
+### 🍎 Demostración en iOS
+[![Demo iOS](https://img.shields.io/badge/Ver_Demo_iOS-000000?style=for-the-badge&logo=apple&logoColor=white)](https://vimeo.com/1105011163)
+
+> **💡 Tip**: Los videos muestran la funcionalidad completa de la aplicación, incluyendo la creación de tareas, edición, eliminación y la integración con IA para generar descripciones automáticamente.
+
+---
+
 ## 🚀 Configuración y Ejecución
 
 ### 📋 Prerrequisitos
