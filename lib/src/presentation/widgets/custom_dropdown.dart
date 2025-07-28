@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../constants/app_colors.dart';
 import '../../constants/string_constants.dart';
 import '../../core/platform/platform_utils.dart';
 
 class CustomDropdown<T> extends StatelessWidget {
-  /// Todo el conjunto de ítems que quieres mostrar.
+  /// Todo el conjunto de ítems que se muestra.
   final List<T> items;
 
   /// El valor actualmente seleccionado (puede ser null).
@@ -68,7 +69,7 @@ class CustomDropdown<T> extends StatelessWidget {
               child: Text(
                 value != null ? itemLabel(value as T) : hint,
                 style: TextStyle(
-                  color: value != null ? Colors.black : Colors.grey[500],
+                  color: value != null ? Colors.black : AppColors.grey400,
                   fontSize: 16,
                 ),
               ),
@@ -99,7 +100,7 @@ class CustomDropdown<T> extends StatelessWidget {
           hintText: hint,
           hintStyle: Theme.of(
             context,
-          ).textTheme.bodyLarge?.copyWith(color: Colors.grey[500]),
+          ).textTheme.bodyLarge?.copyWith(color: AppColors.grey400),
           prefixIcon: prefixIcon != null
               ? Icon(prefixIcon, color: Colors.grey)
               : null,
@@ -141,8 +142,6 @@ class CustomDropdown<T> extends StatelessWidget {
   }
 
   void _showCupertinoPicker(BuildContext context) {
-    final List<T?> pickerItems = [null, ...items];
-
     showCupertinoModalPopup<void>(
       context: context,
       builder: (BuildContext context) => Container(
@@ -192,7 +191,7 @@ class CustomDropdown<T> extends StatelessWidget {
                         hint,
                         style: TextStyle(
                           fontSize: 16,
-                          color: Colors.grey[500],
+                          color: AppColors.grey400,
                           fontStyle: FontStyle.italic,
                         ),
                       ),

@@ -1,5 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+import '../../constants/app_colors.dart';
+import '../../core/platform/platform_utils.dart';
 
 class FieldSectionTitle extends StatelessWidget {
   final String title;
@@ -9,7 +11,6 @@ class FieldSectionTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isIOS = defaultTargetPlatform == TargetPlatform.iOS;
     final ThemeData theme = Theme.of(context);
     return Container(
       alignment: Alignment.centerLeft,
@@ -19,7 +20,7 @@ class FieldSectionTitle extends StatelessWidget {
         style: theme.textTheme.titleSmall?.copyWith(
           fontWeight: FontWeight.w600,
           fontSize: isIOS ? 17 : 16,
-          color: isIOS ? Colors.blueGrey[800] : Colors.black87,
+          color: isIOS ? AppColors.grey600 : Colors.black87,
           letterSpacing: 0.1,
         ),
       ),

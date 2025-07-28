@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_todo_app/src/presentation/widgets/task_card.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -8,6 +7,7 @@ import '../../domain/task.dart';
 import '../../routes/app_routes.dart';
 import '../controllers/home_controllers/task_list_controller.dart';
 import 'adaptive/adaptive_progress_indicator.dart';
+import 'task_card.dart';
 
 class HomeBodyContent extends ConsumerWidget {
   const HomeBodyContent({super.key});

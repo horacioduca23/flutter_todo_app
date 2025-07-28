@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../constants/app_colors.dart';
+import '../../core/platform/platform_utils.dart';
 import '../../domain/task.dart';
 import 'circle_check_box.dart';
 import 'task_label.dart';
@@ -29,9 +32,12 @@ class TaskCard extends StatelessWidget {
         color: Colors.red,
       ),
       padding: const EdgeInsets.only(right: 16.0),
-      child: const Align(
+      child: Align(
         alignment: Alignment.centerRight,
-        child: Icon(Icons.delete_forever_outlined, size: 28.0),
+        child: Icon(
+          isIOS ? CupertinoIcons.delete_solid : Icons.delete_forever_outlined,
+          size: 28.0,
+        ),
       ),
     ),
     onDismissed: (_) => onDismissed?.call(),
@@ -111,7 +117,7 @@ class TaskCard extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: task.isCompleted
                         ? Colors.white.withValues(alpha: 0.7)
-                        : Colors.grey[500],
+                        : AppColors.grey400,
                     fontSize: 14,
                     decoration: TextDecoration.none,
                   ),

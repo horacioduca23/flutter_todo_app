@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../constants/string_constants.dart';
+import '../../core/platform/platform_utils.dart';
 import '../../domain/task.dart';
 import '../controllers/home_controllers/task_list_controller.dart';
 import 'adaptive/adaptive_dialog_alert.dart';
@@ -18,7 +20,11 @@ class HomeHeaderDeleteAction extends ConsumerWidget {
 
     return tasksAsync.when(
       data: (tasks) => IconButton(
-        icon: const Icon(Icons.delete_outline, color: Colors.black, size: 34.0),
+        icon: Icon(
+          isIOS ? CupertinoIcons.delete : Icons.delete_outline,
+          color: Colors.black,
+          size: isIOS ? 24.0 : 34.0,
+        ),
         onPressed: tasks.isNotEmpty
             ? () async => await showDialog(
                 context: context,

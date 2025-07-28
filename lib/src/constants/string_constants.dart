@@ -33,4 +33,8 @@ abstract class StringConstants {
   static const String todoApp = 'ToDo App';
   static const String loadingTasks = 'Cargando tareas...';
   static const String errorLoadingTasks = 'Error al cargar tareas';
+  static const String llmRemoteDescriptionPrompt =
+      "Eres un asistente que responde siempre en texto plano, con máximo 5 viñetas o 3 oraciones breves.";
+  static const String errorFetchingData = 'Error al obtener datos';
+  static const String errorFetchingDataHttp = 'Error en la respuesta HTTP:';
 }

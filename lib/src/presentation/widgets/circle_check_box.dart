@@ -1,4 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../constants/app_colors.dart';
+import '../../core/platform/platform_utils.dart';
 
 class CircleCheckBox extends StatelessWidget {
   final bool value;
@@ -14,14 +18,18 @@ class CircleCheckBox extends StatelessWidget {
       height: 24,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: value ? const Color(0xFF4A6CF7) : Colors.transparent,
+        color: value ? AppColors.blue : Colors.transparent,
         border: Border.all(
-          color: value ? const Color(0xFF4A6CF7) : Colors.grey[400]!,
+          color: value ? AppColors.blue : AppColors.grey400,
           width: 2,
         ),
       ),
       child: value
-          ? const Icon(Icons.check, color: Colors.white, size: 16)
+          ? Icon(
+              isIOS ? CupertinoIcons.checkmark : Icons.check,
+              color: Colors.white,
+              size: 16,
+            )
           : null,
     ),
   );

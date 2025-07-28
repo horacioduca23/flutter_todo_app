@@ -17,9 +17,9 @@ class HomeHeaderSubtitle extends ConsumerWidget {
 
     return tasksAsync.when(
       data: (tasks) {
-        final completedTasks = tasks.where((t) => t.isCompleted).length;
-        final pendingTasks = tasks.length - completedTasks;
-        final areAllTasksCompleted = tasks.isNotEmpty && pendingTasks == 0;
+        final int completedTasks = tasks.where((t) => t.isCompleted).length;
+        final int pendingTasks = tasks.length - completedTasks;
+        final bool areAllTasksCompleted = tasks.isNotEmpty && pendingTasks == 0;
 
         return HomeHeader(
           title: StringConstants.myTasksTitle,
