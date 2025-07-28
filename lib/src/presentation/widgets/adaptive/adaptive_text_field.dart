@@ -123,6 +123,7 @@ class AdaptiveTextField extends StatelessWidget {
             horizontal: 16,
             vertical: isLarge ? 20 : 16,
           ),
+          counterText: '',
         ),
         onChanged: onChanged,
       ),
