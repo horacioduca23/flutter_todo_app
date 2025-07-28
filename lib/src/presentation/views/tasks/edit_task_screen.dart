@@ -77,7 +77,7 @@ class EditTaskScreen extends ConsumerWidget {
         ),
       ),
       bottomNavigationBar: TaskBottomBar(
-        title: StringConstants.addTaskButton,
+        title: StringConstants.editTaskTitle,
         onPressed: allFieldsAreValid
             ? () {
                 ref
