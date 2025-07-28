@@ -4,7 +4,7 @@ abstract class StringConstants {
   static const String contentChargingGif = 'assets/images/content_charging.gif';
   static const String todoListLogo = 'assets/images/todo_list_logo.svg';
   static const String addTaskTitle = 'Agregar tarea';
-  static const String editTaskTitle = 'Editar tarea';
+  static const String editTaskTitle = 'Actualizar tarea';
   static const String titleField = 'Título';
   static const String titleHint = 'Qué estás planeando? 🤔';
   static const String generateDescriptionField = 'Genera descripción';

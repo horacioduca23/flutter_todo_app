@@ -41,7 +41,7 @@ class Task {
   TaskLabelEnum get labelEnum {
     return TaskLabelEnum.values.firstWhere(
       (e) => e.name == label,
-      orElse: () => TaskLabelEnum.other,
+      orElse: () => TaskLabelEnum.personal,
     );
   }
 

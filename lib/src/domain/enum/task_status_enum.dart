@@ -1,6 +1,6 @@
 enum TaskStatusEnum {
-  pending(label: 'Pending'),
-  completed(label: 'Completed');
+  pending(label: 'Pendiente'),
+  completed(label: 'Completada');
 
   const TaskStatusEnum({required this.label});
 

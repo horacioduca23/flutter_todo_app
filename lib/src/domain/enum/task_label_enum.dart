@@ -1,9 +1,9 @@
 enum TaskLabelEnum {
-  frontend('Frontend'),
-  backend('Backend'),
-  qa('QA'),
-  testing('Testing'),
-  other('Otro');
+  work('Trabajo'),
+  personal('Personal'),
+  urgent('Urgente'),
+  home('Hogar'),
+  projects('Proyectos');
 
   const TaskLabelEnum(this.label);
 
