@@ -7,7 +7,7 @@ part of 'task_list_controller.dart';
 // **************************************************************************
 
 String _$taskListControllerHash() =>
-    r'7e9ea357a2dfb3a94e566f147046632586d1b26c';
+    r'8a37b92a1ed601494272b87fbefe3cbd88927f6c';
 
 /// See also [TaskListController].
 @ProviderFor(TaskListController)

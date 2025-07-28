@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../constants/app_colors.dart';
 import '../../constants/string_constants.dart';
 
 class HomeHeader extends StatelessWidget {
@@ -33,7 +34,7 @@ class HomeHeader extends StatelessWidget {
               subtitle,
               style: Theme.of(
                 context,
-              ).textTheme.titleMedium?.copyWith(color: Colors.grey[600]),
+              ).textTheme.titleMedium?.copyWith(color: AppColors.grey600),
             ),
           ],
         ),

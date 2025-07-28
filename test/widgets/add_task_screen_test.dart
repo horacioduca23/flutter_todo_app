@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_todo_app/src/data/repositories/hive_task_repository.dart';
-import 'package:flutter_todo_app/src/domain/enum/task_label_enum.dart';
-import 'package:flutter_todo_app/src/domain/enum/task_status_enum.dart';
 import 'package:flutter_todo_app/src/domain/task.dart';
 import 'package:flutter_todo_app/src/presentation/providers.dart';
 import 'package:flutter_todo_app/src/presentation/views/tasks/add_task_screen.dart';
@@ -26,8 +24,9 @@ void main() {
 
     setUp(() {
       mockRepository = MockHiveTaskRepository();
-      when(() => mockRepository.addTask(task: any(named: 'task')))
-          .thenAnswer((_) async {});
+      when(
+        () => mockRepository.addTask(task: any(named: 'task')),
+      ).thenAnswer((_) async {});
 
       goRouter = GoRouter(
         routes: [

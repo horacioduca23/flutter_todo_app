@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/platform/platform_utils.dart';
+import '../../../constants/app_colors.dart';
+import '../../../core/platform/platform_utils.dart';
 
 class AdaptiveTextField extends StatelessWidget {
   const AdaptiveTextField({
@@ -16,7 +17,6 @@ class AdaptiveTextField extends StatelessWidget {
     this.isLarge = false,
     this.onChanged,
     this.maxLength,
-    this.showCounter = true,
   });
 
   final TextEditingController controller;
@@ -29,7 +29,6 @@ class AdaptiveTextField extends StatelessWidget {
   final bool isLarge;
   final void Function(String)? onChanged;
   final int? maxLength;
-  final bool showCounter;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +63,7 @@ class AdaptiveTextField extends StatelessWidget {
           ),
           minLines: minLines,
           maxLines: maxLines,
-          maxLength: showCounter ? maxLength : null,
+          maxLength: maxLength,
           keyboardType: keyboardType,
           textInputAction: textInputAction,
           onChanged: onChanged,
@@ -102,7 +101,7 @@ class AdaptiveTextField extends StatelessWidget {
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
-            color: Colors.grey[500],
+            color: AppColors.grey400,
             fontSize: isLarge ? 18 : 16,
           ),
           prefixIcon: prefixIcon,
@@ -124,7 +123,6 @@ class AdaptiveTextField extends StatelessWidget {
             horizontal: 16,
             vertical: isLarge ? 20 : 16,
           ),
-          counterText: showCounter ? null : '',
         ),
         onChanged: onChanged,
       ),

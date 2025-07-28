@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../constants/app_colors.dart';
 import '../../../core/platform/platform_utils.dart';
 
 class AdaptiveButton extends StatelessWidget {
@@ -26,7 +27,7 @@ class AdaptiveButton extends StatelessWidget {
     if (isIOS) {
       return CupertinoButton(
         onPressed: onPressed,
-        color: isFilled ? color ?? CupertinoColors.activeBlue : null,
+        color: isFilled ? color ?? AppColors.blackCupertino : null,
         padding: padding,
         borderRadius: borderRadius ?? BorderRadius.circular(8),
         child: child,

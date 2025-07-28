@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../constants/app_colors.dart';
+
 class TaskFormHeader extends StatelessWidget {
   const TaskFormHeader({super.key, required this.title});
 
@@ -9,7 +11,7 @@ class TaskFormHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(child: Container(height: 1, color: Colors.grey[300])),
+        Expanded(child: Container(height: 1, color: AppColors.grey300)),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
@@ -20,7 +22,7 @@ class TaskFormHeader extends StatelessWidget {
             ),
           ),
         ),
-        Expanded(child: Container(height: 1, color: Colors.grey[300])),
+        Expanded(child: Container(height: 1, color: AppColors.grey300)),
       ],
     );
   }

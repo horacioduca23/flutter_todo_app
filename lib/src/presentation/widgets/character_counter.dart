@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../constants/app_colors.dart';
+
 class CharacterCounter extends StatelessWidget {
   const CharacterCounter({
     super.key,
@@ -27,7 +29,7 @@ class CharacterCounter extends StatelessWidget {
                   ? Colors.red
                   : isNearLimit
                   ? Colors.orange
-                  : Colors.grey[600],
+                  : AppColors.grey600,
               fontWeight: isAtLimit ? FontWeight.bold : FontWeight.normal,
             ),
           ),

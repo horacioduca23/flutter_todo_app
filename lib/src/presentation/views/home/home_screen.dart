@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../constants/app_colors.dart';
 import '../../../constants/string_constants.dart';
+import '../../../core/platform/platform_utils.dart';
 import '../../../routes/app_routes.dart';
 import '../../widgets/adaptive/adaptive_app_bar.dart';
 import '../../widgets/adaptive/adaptive_button.dart';
@@ -42,10 +45,14 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: AdaptiveButton(
-        color: const Color(0xFF4A6CF7),
+        color: AppColors.blue,
         isFilled: true,
         onPressed: () => context.goNamed(AppRoutes.addTask.name),
-        child: const Icon(Icons.add, color: Colors.white, size: 28.0),
+        child: Icon(
+          isIOS ? CupertinoIcons.add : Icons.add,
+          color: Colors.white,
+          size: 28.0,
+        ),
       ),
     );
   }
