@@ -2,8 +2,8 @@
 
 <div align="center">
 
-![Flutter](https://img.shields.io/badge/Flutter-3.8.1+-02569B?style=for-the-badge&logo=flutter&logoColor=white)
-![Dart](https://img.shields.io/badge/Dart-3.8.1+-0175C2?style=for-the-badge&logo=dart&logoColor=white)
+![Flutter](https://img.shields.io/badge/Flutter-3.24.0+-02569B?style=for-the-badge&logo=flutter&logoColor=white)
+![Dart](https://img.shields.io/badge/Dart-3.4.0+-0175C2?style=for-the-badge&logo=dart&logoColor=white)
 ![Platform](https://img.shields.io/badge/Platform-iOS%20%7C%20Android-000000?style=for-the-badge)
 ![Architecture](https://img.shields.io/badge/Architecture-Clean%20Architecture-6C63FF?style=for-the-badge)
 ![Testing](https://img.shields.io/badge/Testing-Unit%20%7C%20Widget-4CAF50?style=for-the-badge)
@@ -27,7 +27,7 @@ Una aplicación de tareas moderna y elegante construida con Flutter que combina 
 
 ### 🛠️ Stack Tecnológico
 
-- **Frontend**: Flutter 3.8.1+ con Dart
+- **Frontend**: Flutter 3.24.0+ con Dart
 - **State Management**: Riverpod con hooks
 - **Navegación**: Go Router
 - **Base de Datos**: Hive (NoSQL local)
@@ -41,8 +41,8 @@ Una aplicación de tareas moderna y elegante construida con Flutter que combina 
 
 ### 📋 Prerrequisitos
 
-- Flutter SDK 3.8.1 o superior
-- Dart SDK 3.8.1 o superior
+- Flutter SDK 3.24.0 o superior
+- Dart SDK 3.4.0 o superior
 - Android Studio / Xcode (para emuladores)
 - Git
 
@@ -117,7 +117,7 @@ flutter test --coverage
 flutter test test/unit/
 flutter test test/widgets/
 
-# Generar reporte de cobertura
+# Generar reporte de cobertura (debes tener lcov instalado)
 genhtml coverage/lcov.info -o coverage/html
 ```
 
@@ -179,7 +179,6 @@ La aplicación incluye generación automática de descripciones usando **Large L
 - **Navegación Intuitiva**: Go Router para navegación fluida
 - **Feedback Visual**: Indicadores de carga y estados
 - **Validación en Tiempo Real**: Campos con validación instantánea
-- **Accesibilidad**: Soporte para lectores de pantalla
 
 ---
 
@@ -209,31 +208,13 @@ flutter build apk
 flutter build ios
 ```
 
----
 
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
-
----
-
-## 🤝 Contribución
-
-¡Las contribuciones son bienvenidas! Por favor:
-
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
----
-
-## 📞 Soporte
+## 📞 Contact me
 
 Si tienes alguna pregunta o necesitas ayuda:
 
 - 📧 Email: [Horacioduca23@gmail.com]
+- 💼 LinkedIn: [https://www.linkedin.com/in/horacio-duca/]
 
 ---
 
