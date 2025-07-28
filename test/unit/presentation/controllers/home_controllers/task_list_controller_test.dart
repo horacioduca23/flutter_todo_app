@@ -29,7 +29,7 @@ void main() {
       title: 'Test Task',
       description: 'Description',
       isCompleted: false,
-      label: TaskLabelEnum.frontend,
+      label: TaskLabelEnum.work,
       status: TaskStatusEnum.pending,
       userAssigned: 'user1',
     );
@@ -38,7 +38,7 @@ void main() {
       title: 'Another Task',
       description: 'Another Description',
       isCompleted: false,
-      label: TaskLabelEnum.backend,
+      label: TaskLabelEnum.personal,
       status: TaskStatusEnum.pending,
       userAssigned: 'user2',
     );

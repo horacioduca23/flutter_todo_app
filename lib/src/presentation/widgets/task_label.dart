@@ -11,11 +11,11 @@ class TaskLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Color backgroundColor = switch (label) {
-      TaskLabelEnum.frontend => AppColors.frontend,
-      TaskLabelEnum.backend => AppColors.backend,
-      TaskLabelEnum.qa => AppColors.qa,
-      TaskLabelEnum.testing => AppColors.testing,
-      TaskLabelEnum.other => AppColors.other,
+      TaskLabelEnum.work => AppColors.work,
+      TaskLabelEnum.personal => AppColors.personal,
+      TaskLabelEnum.urgent => AppColors.urgent,
+      TaskLabelEnum.home => AppColors.home,
+      TaskLabelEnum.projects => AppColors.projects,
     };
 
     return Container(
